@@ -935,3 +935,79 @@ body {
         height: 20px;
     }
 }
+
+/* Mac 窗口主题 */
+.theme-default .mac-window-header {
+    background: #e9e9e9;
+}
+
+.theme-dark .mac-window-header {
+    background: #2d2d2d;
+}
+
+.theme-dark .mac-window,
+.theme-dark .mac-window-content {
+    background: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.theme-dark #text {
+    color: #e0e0e0;
+}
+
+.theme-blue .mac-window-header {
+    background: #0078d4;
+}
+
+.theme-blue .mac-window {
+    border: 1px solid #0078d4;
+}
+
+.theme-minimal .mac-window {
+    box-shadow: none;
+    border: 1px solid #eaeaea;
+}
+
+.theme-minimal .mac-window-header {
+    background: #ffffff;
+    border-bottom: 1px solid #eaeaea;
+}
+
+/* 主题切换按钮样式 */
+.theme-switcher {
+    position: fixed;
+    top: 5rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.theme-option {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.theme-option:hover {
+    transform: scale(1.1);
+}
+
+.theme-option.active {
+    border-color: #2563eb;
+}
+
+/* 主题预览颜色 */
+.theme-option.default { background: #e9e9e9; }
+.theme-option.dark { background: #2d2d2d; }
+.theme-option.blue { background: #0078d4; }
+.theme-option.minimal { background: #ffffff; border: 1px solid #eaeaea; }

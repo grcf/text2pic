@@ -174,6 +174,45 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+
+    // 添加主题切换功能
+    const themeSwitcher = document.querySelector('.theme-switcher');
+    const macWindows = document.querySelectorAll('.mac-window');
+    
+    themeSwitcher.addEventListener('click', function(e) {
+        if (e.target.classList.contains('theme-option')) {
+            // 移除所有主题类
+            macWindows.forEach(window => {
+                window.classList.remove('theme-default', 'theme-dark', 'theme-blue', 'theme-minimal');
+                window.classList.add(`theme-${e.target.dataset.theme}`);
+            });
+            
+            // 更新活动状态
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            e.target.classList.add('active');
+            
+            // 保存主题选择到 localStorage
+            localStorage.setItem('preferred-theme', e.target.dataset.theme);
+        }
+    });
+    
+    // 加载保存的主题
+    const savedTheme = localStorage.getItem('preferred-theme');
+    if (savedTheme) {
+        macWindows.forEach(window => {
+            window.classList.remove('theme-default', 'theme-dark', 'theme-blue', 'theme-minimal');
+            window.classList.add(`theme-${savedTheme}`);
+        });
+        
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.classList.remove('active');
+            if (option.dataset.theme === savedTheme) {
+                option.classList.add('active');
+            }
+        });
+    }
 });
 
 // 添加文本框输入动画效果
