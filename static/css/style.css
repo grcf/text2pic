@@ -1120,3 +1120,77 @@ body {
     -webkit-text-fill-color: transparent;
     padding: 0 0.2em;
 }
+
+/* Mac 风格对话框 */
+.mac-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.mac-dialog-overlay.show {
+    opacity: 1;
+}
+
+.mac-dialog {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mac-dialog-overlay.show .mac-dialog {
+    transform: scale(1);
+}
+
+.mac-dialog h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.mac-dialog p {
+    color: #666;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.mac-dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.mac-dialog-buttons button {
+    min-width: 80px;
+}
+
+/* 深色主题适配 */
+.theme-dark .mac-dialog {
+    background: rgba(30, 30, 30, 0.95);
+}
+
+.theme-dark .mac-dialog h3 {
+    color: #fff;
+}
+
+.theme-dark .mac-dialog p {
+    color: #aaa;
+}

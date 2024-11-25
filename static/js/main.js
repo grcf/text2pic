@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const outputImg = document.getElementById('output');
     const resultDiv = document.getElementById('result');
     const copyBtn = document.getElementById('copy');
+    const clearBtn = document.getElementById('clear');
 
     // 配置marked
     marked.setOptions({
@@ -216,6 +217,88 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 设置当前年份
     document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // 修改清空按钮的点击事件处理
+    clearBtn.addEventListener('click', function() {
+        if (!editor.value.trim()) {
+            return; // 如果已经是空的，直接返回
+        }
+        
+        showConfirmDialog(
+            '确定要清空所有内容吗？',
+            '此操作无法撤销',
+            () => {
+                editor.value = '';
+                updatePreview();
+                
+                // 隐藏结果区域
+                resultDiv.classList.remove('show');
+                setTimeout(() => {
+                    resultDiv.style.display = 'none';
+                    downloadBtn.classList.add('hidden');
+                    copyBtn.classList.add('hidden');
+                }, 300);
+                
+                // 重置输入框高度
+                editor.style.height = 'auto';
+            }
+        );
+    });
+
+    // 添加自定义确认对话框函数
+    function showConfirmDialog(title, message, onConfirm) {
+        // 创建对话框元素
+        const dialog = document.createElement('div');
+        dialog.className = 'mac-dialog-overlay';
+        dialog.innerHTML = `
+            <div class="mac-dialog">
+                <div class="mac-dialog-content">
+                    <h3>${title}</h3>
+                    <p>${message}</p>
+                    <div class="mac-dialog-buttons">
+                        <button class="mac-style-button cancel-btn">取消</button>
+                        <button class="mac-style-button primary confirm-btn">确定</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // 添加到页面
+        document.body.appendChild(dialog);
+        
+        // 添加动画类
+        setTimeout(() => dialog.classList.add('show'), 10);
+
+        // 绑定事件
+        const cancelBtn = dialog.querySelector('.cancel-btn');
+        const confirmBtn = dialog.querySelector('.confirm-btn');
+        
+        function closeDialog() {
+            dialog.classList.remove('show');
+            setTimeout(() => dialog.remove(), 300);
+        }
+
+        cancelBtn.addEventListener('click', closeDialog);
+        confirmBtn.addEventListener('click', () => {
+            onConfirm();
+            closeDialog();
+        });
+        
+        // 点击背景关闭
+        dialog.addEventListener('click', (e) => {
+            if (e.target === dialog) {
+                closeDialog();
+            }
+        });
+        
+        // ESC 键关闭
+        document.addEventListener('keydown', function closeOnEsc(e) {
+            if (e.key === 'Escape') {
+                closeDialog();
+                document.removeEventListener('keydown', closeOnEsc);
+            }
+        });
+    }
 });
 
 // 添加文本框输入动画效果
