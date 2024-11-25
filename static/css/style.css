@@ -1349,3 +1349,150 @@ body {
         bottom: 30px;
     }
 }
+
+/* 宽度控制样式 */
+.width-control-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+}
+
+.width-input-wrapper {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 2px 8px;
+}
+
+.width-input {
+    width: 50px;
+    border: none;
+    background: transparent;
+    font-family: 'Cascadia Code', monospace;
+    font-size: 14px;
+    color: #666;
+    text-align: right;
+    padding: 2px;
+    -moz-appearance: textfield;
+}
+
+.width-input::-webkit-inner-spin-button,
+.width-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.width-unit {
+    color: #666;
+    font-size: 14px;
+    margin-left: 2px;
+}
+
+.width-button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.width-button:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.width-button:active {
+    transform: translateY(0);
+}
+
+/* 深色主题适配 */
+.theme-dark .width-control-wrapper {
+    background: rgba(50, 50, 50, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-dark .width-input-wrapper {
+    background: rgba(60, 60, 60, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-dark .width-input {
+    color: #aaa;
+}
+
+.theme-dark .width-unit {
+    color: #aaa;
+}
+
+.theme-dark .width-button {
+    background: rgba(60, 60, 60, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #aaa;
+}
+
+.theme-dark .width-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+/* 调整 mac-window-header 的样式以适应新的控件 */
+.mac-window-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+}
+
+/* 确保按钮容器保持在左侧 */
+.mac-window-buttons {
+    z-index: 1;
+}
+
+/* 调整网格布局，使其支持不同宽度的预览区 */
+.grid.grid-cols-1.md\:grid-cols-2 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+}
+
+/* 确保预览区容器可以正确调整宽度 */
+.bg-white.rounded-lg.shadow-lg.p-6 {
+    transition: width 0.3s ease;
+    width: 100%;
+}
+
+/* 调整预览区的最小宽度 */
+.bg-white.rounded-lg.shadow-lg.p-6:nth-child(2) {
+    min-width: 300px;
+}
+
+/* 响应式布局调整 */
+@media (max-width: 768px) {
+    .grid.grid-cols-1.md\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .bg-white.rounded-lg.shadow-lg.p-6:nth-child(2) {
+        width: 100% !important; /* 在移动设备上强制使用全宽 */
+        min-width: 0;
+    }
+}

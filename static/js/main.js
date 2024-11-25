@@ -446,6 +446,49 @@ document.addEventListener('DOMContentLoaded', function() {
             previewScrollButtons.style.display = 'none';
         }
     });
+
+    // 宽度调整功能
+    const previewContainer = document.querySelector('.bg-white.rounded-lg.shadow-lg.p-6:nth-child(2)');
+    const widthInput = document.querySelector('.width-input');
+    const decreaseBtn = document.querySelector('.width-button.decrease');
+    const increaseBtn = document.querySelector('.width-button.increase');
+
+    let currentWidth = 100;
+    const minWidth = 50;
+    const maxWidth = 150;
+    const step = 10;
+
+    function updatePreviewWidth(width) {
+        currentWidth = Math.min(Math.max(width, minWidth), maxWidth);
+        previewContainer.style.width = `${currentWidth}%`;
+        previewContainer.style.transition = 'width 0.3s ease';
+        widthInput.value = currentWidth;
+        window.dispatchEvent(new Event('resize'));
+    }
+
+    decreaseBtn.addEventListener('click', () => {
+        updatePreviewWidth(currentWidth - step);
+    });
+
+    increaseBtn.addEventListener('click', () => {
+        updatePreviewWidth(currentWidth + step);
+    });
+
+    widthInput.addEventListener('input', (e) => {
+        let value = parseInt(e.target.value);
+        if (!isNaN(value)) {
+            updatePreviewWidth(value);
+        }
+    });
+
+    widthInput.addEventListener('blur', () => {
+        if (widthInput.value === '' || isNaN(parseInt(widthInput.value))) {
+            widthInput.value = currentWidth;
+        }
+    });
+
+    // 初始化宽度
+    updatePreviewWidth(currentWidth);
 });
 
 // 添加文本框输入动画效果
