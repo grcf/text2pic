@@ -213,6 +213,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // 设置当前年份
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
 });
 
 // 添加文本框输入动画效果

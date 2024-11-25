@@ -1043,3 +1043,40 @@ body {
     border-radius: 2px;
     opacity: 0.5;
 }
+
+/* 版权信息样式 */
+.copyright-info {
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 3rem;
+    color: #6b7280;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(229, 231, 235, 0.5);
+}
+
+.copyright-info .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #3b82f6;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+.copyright-info a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.copyright-info a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
