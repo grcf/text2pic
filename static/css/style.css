@@ -1194,3 +1194,158 @@ body {
 .theme-dark .mac-dialog p {
     color: #aaa;
 }
+
+/* 滚动按钮容器 */
+.scroll-buttons {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+/* 当父容器悬浮时显示按钮 */
+.mac-window-content:hover .scroll-buttons {
+    opacity: 1;
+}
+
+/* 滚动按钮样式 */
+.scroll-button {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+}
+
+.scroll-button:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    color: #333;
+}
+
+.scroll-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 深色主题适配 */
+.theme-dark .scroll-button {
+    background: rgba(50, 50, 50, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #aaa;
+}
+
+.theme-dark .scroll-button:hover {
+    background: rgba(60, 60, 60, 0.95);
+    color: #fff;
+}
+
+/* 动画效果 */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+}
+
+.scroll-button:hover svg {
+    animation: bounce 1s infinite;
+}
+
+/* 适配移动设备 */
+@media (max-width: 768px) {
+    .scroll-buttons {
+        opacity: 1; /* 在移动设备上始终显示 */
+        right: 4px;
+        bottom: 4px;
+    }
+    
+    .scroll-button {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .scroll-button svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* 全局滚动按钮样式 */
+.global-scroll-buttons {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.global-scroll-buttons.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.global-scroll-buttons .scroll-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.global-scroll-buttons .scroll-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 预览区域滚动按钮特殊样式 */
+.preview-scroll-buttons {
+    right: 12px;
+    bottom: 12px;
+}
+
+/* 深色主题适配 */
+.theme-dark .global-scroll-buttons .scroll-button {
+    background: rgba(50, 50, 50, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .global-scroll-buttons {
+        right: 12px;
+        bottom: 12px;
+    }
+    
+    .global-scroll-buttons .scroll-button {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* 确保全局滚动按钮不会与 GitHub 链接重叠 */
+@media (min-width: 769px) {
+    .global-scroll-buttons {
+        right: 30px;
+        bottom: 30px;
+    }
+}

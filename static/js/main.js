@@ -299,6 +299,153 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // 获取按钮元素
+    const scrollTopBtn = document.querySelector('.scroll-top');
+    const scrollBottomBtn = document.querySelector('.scroll-bottom');
+
+    // 平滑滚动函数
+    function smoothScroll(element, target, duration) {
+        const start = element.scrollTop;
+        const distance = target - start;
+        const startTime = performance.now();
+
+        function animation(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // easeInOutQuad 缓动函数
+            const easing = progress < 0.5
+                ? 2 * progress * progress
+                : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+            
+            element.scrollTop = start + (distance * easing);
+
+            if (progress < 1) {
+                requestAnimationFrame(animation);
+            }
+        }
+
+        requestAnimationFrame(animation);
+    }
+
+    // 滚动到顶部
+    scrollTopBtn.addEventListener('click', () => {
+        smoothScroll(editor, 0, 300);
+    });
+
+    // 滚动到底部
+    scrollBottomBtn.addEventListener('click', () => {
+        smoothScroll(editor, editor.scrollHeight, 300);
+    });
+
+    // 监听滚动事件来控制按钮显示/隐藏
+    editor.addEventListener('scroll', () => {
+        const scrollButtons = document.querySelector('.scroll-buttons');
+        
+        // 只有当内容高度大于容器高度时才显示按钮
+        if (editor.scrollHeight > editor.clientHeight) {
+            scrollButtons.style.display = 'flex';
+        } else {
+            scrollButtons.style.display = 'none';
+        }
+    });
+
+    // 初始化时检查是否需要显示按钮
+    window.addEventListener('load', () => {
+        const scrollButtons = document.querySelector('.scroll-buttons');
+        if (editor.scrollHeight <= editor.clientHeight) {
+            scrollButtons.style.display = 'none';
+        }
+    });
+
+    // 获取所有滚动按钮元素
+    const globalScrollTopBtn = document.querySelector('.global-scroll-top');
+    const globalScrollBottomBtn = document.querySelector('.global-scroll-bottom');
+    const previewScrollTopBtn = document.querySelector('.preview-scroll-top');
+    const previewScrollBottomBtn = document.querySelector('.preview-scroll-bottom');
+    const globalScrollButtons = document.querySelector('.global-scroll-buttons');
+
+    // 平滑滚动函数（保持原有的）
+    function smoothScroll(element, target, duration) {
+        const start = element.scrollTop;
+        const distance = target - start;
+        const startTime = performance.now();
+
+        function animation(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            const easing = progress < 0.5
+                ? 2 * progress * progress
+                : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+            
+            element.scrollTop = start + (distance * easing);
+
+            if (progress < 1) {
+                requestAnimationFrame(animation);
+            }
+        }
+
+        requestAnimationFrame(animation);
+    }
+
+    // 全局滚动按钮事件
+    globalScrollTopBtn.addEventListener('click', () => {
+        smoothScroll(document.documentElement, 0, 500);
+    });
+
+    globalScrollBottomBtn.addEventListener('click', () => {
+        smoothScroll(document.documentElement, document.documentElement.scrollHeight, 500);
+    });
+
+    // 预览区域滚动按钮事件
+    previewScrollTopBtn.addEventListener('click', () => {
+        smoothScroll(preview, 0, 300);
+    });
+
+    previewScrollBottomBtn.addEventListener('click', () => {
+        smoothScroll(preview, preview.scrollHeight, 300);
+    });
+
+    // 控制全局滚动按钮的显示/隐藏
+    function toggleGlobalScrollButtons() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        
+        if (scrollTop > windowHeight * 0.3 || documentHeight > windowHeight * 1.5) {
+            globalScrollButtons.classList.add('show');
+        } else {
+            globalScrollButtons.classList.remove('show');
+        }
+    }
+
+    // 监听滚动事件
+    window.addEventListener('scroll', toggleGlobalScrollButtons);
+    window.addEventListener('resize', toggleGlobalScrollButtons);
+
+    // 初始化时检查是否需要显示全局滚动按钮
+    document.addEventListener('DOMContentLoaded', toggleGlobalScrollButtons);
+
+    // 监听预览区域的滚动事件
+    preview.addEventListener('scroll', () => {
+        const previewScrollButtons = document.querySelector('.preview-scroll-buttons');
+        
+        if (preview.scrollHeight > preview.clientHeight) {
+            previewScrollButtons.style.display = 'flex';
+        } else {
+            previewScrollButtons.style.display = 'none';
+        }
+    });
+
+    // 初始化时检查预览区域是否需要显示按钮
+    window.addEventListener('load', () => {
+        const previewScrollButtons = document.querySelector('.preview-scroll-buttons');
+        if (preview.scrollHeight <= preview.clientHeight) {
+            previewScrollButtons.style.display = 'none';
+        }
+    });
 });
 
 // 添加文本框输入动画效果
