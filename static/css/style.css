@@ -864,7 +864,7 @@ body {
     border-radius: 2px;
 }
 
-/* 二级标题样式 */
+/* 二���标题样式 */
 .text-xl {
     font-size: 1.5rem !important;
     color: #1e40af;
@@ -973,44 +973,112 @@ body {
     border-bottom: 1px solid #eaeaea;
 }
 
-/* 主题切换按钮样式 */
+/* 主题切换器新样式 */
 .theme-switcher {
     position: fixed;
     top: 5rem;
     right: 1rem;
     background: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
-    padding: 0.5rem;
+    border-radius: 24px;
+    padding: 8px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     z-index: 1000;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 48px;
+    overflow: hidden;
+}
+
+.theme-switcher.expanded {
+    max-height: 200px;
+    padding: 8px;
+}
+
+.theme-toggle-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle-btn svg {
+    width: 18px;
+    height: 18px;
+    color: #666;
+    transition: transform 0.3s ease;
+}
+
+.theme-switcher.expanded .theme-toggle-btn svg {
+    transform: rotate(180deg);
+}
+
+.theme-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.theme-switcher.expanded .theme-options {
+    opacity: 1;
 }
 
 .theme-option {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     cursor: pointer;
-    border: 2px solid transparent;
     transition: all 0.3s ease;
+    position: relative;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .theme-option:hover {
     transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.theme-option.active {
-    border-color: #2563eb;
+.theme-option.active::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
 }
 
-/* 主题预览颜色 */
-.theme-option.default { background: #e9e9e9; }
-.theme-option.dark { background: #2d2d2d; }
-.theme-option.blue { background: #0078d4; }
-.theme-option.minimal { background: #ffffff; border: 1px solid #eaeaea; }
+/* 深色主题适配 */
+.theme-dark .theme-switcher {
+    background: rgba(30, 30, 30, 0.9);
+}
+
+.theme-dark .theme-toggle-btn {
+    background: linear-gradient(145deg, #333, #222);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-dark .theme-toggle-btn svg {
+    color: #aaa;
+}
 
 /* 介绍语样式 */
 .intro-text {
@@ -1495,4 +1563,99 @@ body {
         width: 100% !important; /* 在移动设备上强制使用全宽 */
         min-width: 0;
     }
+}
+
+/* 主题选项的具体颜色样式 */
+.theme-option {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 默认主题 */
+.theme-option.default {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    border-color: #e0e0e0;
+}
+
+/* 深色主题 */
+.theme-option.dark {
+    background: linear-gradient(135deg, #2d3142 0%, #1a1b26 100%);
+    border-color: #1a1b26;
+}
+
+/* 蓝色主题 */
+.theme-option.blue {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    border-color: #357abd;
+}
+
+/* 简约主题 */
+.theme-option.minimal {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-color: #dee2e6;
+}
+
+/* 悬停效果 */
+.theme-option:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 选中状态 */
+.theme-option.active {
+    border-width: 2px;
+    border-style: solid;
+}
+
+.theme-option.default.active {
+    border-color: #666;
+}
+
+.theme-option.dark.active {
+    border-color: #8b8fa3;
+}
+
+.theme-option.blue.active {
+    border-color: #7eb6ef;
+}
+
+.theme-option.minimal.active {
+    border-color: #adb5bd;
+}
+
+/* 选中标记 */
+.theme-option.active::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+}
+
+.theme-option.default.active::after,
+.theme-option.minimal.active::after {
+    color: #333;
+    text-shadow: none;
+}
+
+/* 主题切换器容器样式优化 */
+.theme-switcher {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* 深色模式下的主题切换器样式 */
+.theme-dark .theme-switcher {
+    background: rgba(30, 30, 30, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
 }

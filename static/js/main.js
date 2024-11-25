@@ -178,9 +178,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 添加主题切换功能
     const themeSwitcher = document.querySelector('.theme-switcher');
+    const themeToggleBtn = document.querySelector('.theme-toggle-btn');
     const macWindows = document.querySelectorAll('.mac-window');
     
-    themeSwitcher.addEventListener('click', function(e) {
+    // 切换主题面板展开/收起
+    themeToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        themeSwitcher.classList.toggle('expanded');
+    });
+
+    // 点击其他区域收起面板
+    document.addEventListener('click', (e) => {
+        if (!themeSwitcher.contains(e.target)) {
+            themeSwitcher.classList.remove('expanded');
+        }
+    });
+
+    // 主题切换功能
+    const themeOptions = document.querySelector('.theme-options');
+    themeOptions.addEventListener('click', (e) => {
         if (e.target.classList.contains('theme-option')) {
             // 移除所有主题类
             macWindows.forEach(window => {
@@ -196,9 +212,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // 保存主题选择到 localStorage
             localStorage.setItem('preferred-theme', e.target.dataset.theme);
+            
+            // 300ms 后自动收起面板
+            setTimeout(() => {
+                themeSwitcher.classList.remove('expanded');
+            }, 300);
         }
     });
-    
+
     // 加载保存的主题
     const savedTheme = localStorage.getItem('preferred-theme');
     if (savedTheme) {
