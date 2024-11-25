@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const previewContainer = document.getElementById('preview');
-        const previewParent = previewContainer.parentElement;
+        const previewParent = previewContainer.parentElement.parentElement;
         const macWindow = document.querySelector('.mac-window-content');
         
         try {
