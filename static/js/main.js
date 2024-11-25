@@ -23,6 +23,47 @@ document.addEventListener('DOMContentLoaded', function() {
         smartypants: false,
     });
 
+    // 添加公式支持
+    const renderer = new marked.Renderer();
+    const originalText = renderer.text.bind(renderer);
+    renderer.text = function(text) {
+        // 确保 text 是字符串
+        if (typeof text !== 'string') {
+            return originalText(text);
+        }
+        
+        // 保护块级公式
+        text = text.replace(/\$\$([\s\S]+?)\$\$/g, function(match) {
+            return match;
+        });
+        
+        // 处理行内公式
+        text = text.replace(/\$([^\$]+?)\$/g, function(match, p1) {
+            // 使用 MathJax 的行内公式语法
+            return '\\(' + p1 + '\\)';
+        });
+        
+        return originalText(text);
+    };
+
+    // 修改块级公式的处理
+    const originalParagraph = renderer.paragraph.bind(renderer);
+    renderer.paragraph = function(text) {
+        // 添加类型检查
+        if (typeof text !== 'string') {
+            return originalParagraph(text);
+        }
+        
+        // 处理块级公式
+        text = text.replace(/\$\$([\s\S]+?)\$\$/g, function(match, p1) {
+            // 使用 MathJax 的块级公式语法
+            return '\\[' + p1 + '\\]';
+        });
+        return originalParagraph(text);
+    };
+
+    marked.setOptions({ renderer: renderer });
+
     // 实时预览功能
     function updatePreview() {
         const markdown = editor.value;
@@ -35,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 让 MathJax 重新渲染数学公式
         if (window.MathJax) {
+            MathJax.typesetClear([preview]);
             MathJax.typesetPromise([preview]).catch(function (err) {
                 console.error('MathJax 渲染错误: ', err.message);
             });
@@ -470,7 +512,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 初始化时检查预览区域是否需要显示按钮
+    // 初���化时检查预览区域是否需要显示按钮
     window.addEventListener('load', () => {
         const previewScrollButtons = document.querySelector('.preview-scroll-buttons');
         if (preview.scrollHeight <= preview.clientHeight) {
