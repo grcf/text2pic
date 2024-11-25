@@ -398,3 +398,63 @@
     color: #1a1a1a;
     font-weight: 600;
 }
+
+/* Mac 风格按钮 */
+.mac-style-button {
+    background: linear-gradient(to bottom, #fefefe, #f4f4f4);
+    border: 1px solid #c2c0c2;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+    color: #333;
+    font-size: 13px;
+    padding: 6px 12px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    height: 32px;
+}
+
+.mac-style-button:hover {
+    background: linear-gradient(to bottom, #fff, #f0f0f0);
+    border-color: #b5b5b5;
+}
+
+.mac-style-button:active {
+    background: linear-gradient(to bottom, #e5e5e5, #f0f0f0);
+    border-color: #b5b5b5;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06);
+}
+
+.mac-style-button.primary {
+    background: linear-gradient(to bottom, #6cb3fa, #067dff);
+    border-color: #1068de;
+    color: white;
+}
+
+.mac-style-button.primary:hover {
+    background: linear-gradient(to bottom, #70b7ff, #0984ff);
+    border-color: #0956bf;
+}
+
+.mac-style-button.primary:active {
+    background: linear-gradient(to bottom, #0956bf, #0984ff);
+    border-color: #0956bf;
+}
+
+.mac-style-button.success {
+    background: linear-gradient(to bottom, #34c759, #30b753);
+    border-color: #2da94d;
+    color: white;
+}
+
+.mac-style-button.success:hover {
+    background: linear-gradient(to bottom, #36d45e, #32c457);
+    border-color: #2fb751;
+}
+
+.mac-style-button.success:active {
+    background: linear-gradient(to bottom, #2fb751, #32c457);
+    border-color: #2fb751;
+}
