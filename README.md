@@ -76,6 +76,6 @@ MIT License © [snaily](https://linux.do/u/snaily)
 
 ## 📝 roadmap
 
-- [ ] 添加数学公式（LaTeX）支持
+- [x] 添加数学公式（LaTeX）支持
 - [ ] 添加 SVG 图形渲染支持
 - [ ] 添加 Mermaid 图表支持
