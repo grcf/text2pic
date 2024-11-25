@@ -114,6 +114,66 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('复制图片失败，请重试或使用下载功能');
         }
     });
+
+    // 将 closeModal 函数移到全局作用域
+    window.closeModal = function() {
+        const modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // 图片点击预览功能
+    outputImg.addEventListener('click', function() {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        modal.style.display = 'flex';
+        modalImg.src = this.src;
+        modalImg.style.transform = 'scale(1)';
+        document.body.style.overflow = 'hidden';
+    });
+
+    // 图片缩放功能
+    let currentZoom = 1;
+
+    window.zoomImage = function(delta) {
+        const modalImg = document.getElementById('modalImage');
+        currentZoom = Math.max(0.5, Math.min(3, currentZoom + delta));
+        modalImg.style.transform = `scale(${currentZoom})`;
+    }
+
+    window.resetZoom = function() {
+        const modalImg = document.getElementById('modalImage');
+        currentZoom = 1;
+        modalImg.style.transform = 'scale(1)';
+    }
+
+    // 点击模态框背景关闭
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+
+    // 添加键盘快捷键支持
+    document.addEventListener('keydown', function(e) {
+        if (document.getElementById('imageModal').style.display === 'flex') {
+            switch(e.key) {
+                case 'Escape':
+                    closeModal();
+                    break;
+                case '+':
+                case '=':
+                    zoomImage(0.1);
+                    break;
+                case '-':
+                    zoomImage(-0.1);
+                    break;
+                case '0':
+                    resetZoom();
+                    break;
+            }
+        }
+    });
 });
 
 // 添加文本框输入动画效果

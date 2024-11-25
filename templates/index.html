@@ -83,5 +83,17 @@
     </div>
 
     <script src="/static/js/main.js"></script>
+
+    <div class="modal-overlay" id="imageModal">
+        <button class="close-modal" onclick="closeModal()">×</button>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="预览图片">
+        </div>
+        <div class="zoom-controls">
+            <button class="zoom-button" onclick="zoomImage(-0.1)">-</button>
+            <button class="zoom-button" onclick="resetZoom()">重置</button>
+            <button class="zoom-button" onclick="zoomImage(0.1)">+</button>
+        </div>
+    </div>
 </body>
 </html>
