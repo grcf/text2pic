@@ -864,7 +864,7 @@ body {
     border-radius: 2px;
 }
 
-/* 二���标题样式 */
+/* 二标题样式 */
 .text-xl {
     font-size: 1.5rem !important;
     color: #1e40af;
@@ -1658,4 +1658,15 @@ body {
 .theme-dark .theme-switcher {
     background: rgba(30, 30, 30, 0.95);
     border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 数学公式样式优化 */
+.mathjax-rendered {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.markdown-body .mjx-chtml {
+    max-width: 100%;
+    overflow-x: auto;
 }

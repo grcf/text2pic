@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 配置marked
     marked.setOptions({
+        renderer: new marked.Renderer(),
         highlight: function(code, lang) {
             if (Prism.languages[lang]) {
                 return Prism.highlight(code, Prism.languages[lang], lang);
@@ -17,7 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return code;
         },
         breaks: true,
-        gfm: true
+        gfm: true,
+        smartLists: true,
+        smartypants: false,
     });
 
     // 实时预览功能
@@ -29,6 +32,13 @@ document.addEventListener('DOMContentLoaded', function() {
             Prism.highlightElement(block);
         });
         addCodeBlockHoverEffect();
+
+        // 让 MathJax 重新渲染数学公式
+        if (window.MathJax) {
+            MathJax.typesetPromise([preview]).catch(function (err) {
+                console.error('MathJax 渲染错误: ', err.message);
+            });
+        }
     }
 
     editor.addEventListener('input', updatePreview);
@@ -510,28 +520,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 初始化宽度
     updatePreviewWidth(currentWidth);
-});
 
-// 添加文本框输入动画效果
-editor.addEventListener('input', function() {
-    this.style.height = 'auto';
-    this.style.height = (this.scrollHeight) + 'px';
-});
-
-// 添加代码块动态高亮效果
-function addCodeBlockHoverEffect() {
-    const codeBlocks = document.querySelectorAll('.markdown-body pre');
-    codeBlocks.forEach(block => {
-        block.addEventListener('mousemove', e => {
-            const rect = block.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            block.style.background = `radial-gradient(circle at ${x}px ${y}px, #2d3142, #292d3e)`;
-        });
-        
-        block.addEventListener('mouseleave', () => {
-            block.style.background = '#292d3e';
-        });
+    // 添加文本框输入动画效果
+    editor.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
     });
-}
+
+    // 添加代码块动态高亮效果
+    function addCodeBlockHoverEffect() {
+        const codeBlocks = document.querySelectorAll('.markdown-body pre');
+        codeBlocks.forEach(block => {
+            block.addEventListener('mousemove', e => {
+                const rect = block.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                block.style.background = `radial-gradient(circle at ${x}px ${y}px, #2d3142, #292d3e)`;
+            });
+            
+            block.addEventListener('mouseleave', () => {
+                block.style.background = '#292d3e';
+            });
+        });
+    }
+
+});
