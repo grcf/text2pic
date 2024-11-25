@@ -4,42 +4,53 @@
     max-width: 100%;
     margin: 0 auto;
     padding: 1rem;
+    color: #24292f;
+    line-height: 1.6;
 }
 
 /* 代码块容器样式 */
 .markdown-body pre {
-    background-color: #282c34 !important;
-    border-radius: 6px;
-    padding: 1rem !important;
-    margin: 1rem 0 !important;
-    overflow: auto;
+    background-color: #292d3e !important;
+    border-radius: 8px !important;
+    padding: 1.2rem !important;
+    margin: 1.2rem 0 !important;
+    overflow-x: auto;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    border: 1px solid #333333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* 代码文本样式 */
 .markdown-body code {
     font-family: 'Cascadia Code', 'Consolas', monospace;
-    font-size: 0.9em;
+    font-size: 0.95em;
+    word-wrap: break-word !important;
+    line-height: 1.5;
 }
 
 /* 代码块中的代码样式 */
 .markdown-body pre code {
-    color: #abb2bf !important;
+    color: #eeffff !important;
     font-family: 'Cascadia Code', 'Consolas', monospace !important;
-    font-size: 0.9em !important;
+    font-size: 0.95em !important;
     text-shadow: none !important;
     background: none !important;
     padding: 0 !important;
-    white-space: pre;
-    word-break: normal;
+    white-space: pre-wrap !important;
+    word-break: break-all !important;
     word-spacing: normal;
+    line-height: 1.6 !important;
 }
 
-/* 行内代码样式 */
+/* 行内代码样式优化 */
 .markdown-body code:not(pre code) {
     background-color: rgba(175, 184, 193, 0.2);
     padding: 0.2em 0.4em;
-    border-radius: 3px;
-    font-size: 0.9em;
+    border-radius: 4px;
+    font-size: 0.95em;
+    color: #333333;
+    border: 1px solid rgba(175, 184, 193, 0.3);
 }
 
 /* Mac 窗口样式 */
@@ -252,15 +263,87 @@
     background-color: #f6f8fa;
 }
 
-/* 代码高亮样式 */
-.token.comment { color: #5C6370 !important; font-style: italic !important; }
-.token.keyword { color: #C678DD !important; }
-.token.string { color: #98C379 !important; }
-.token.number { color: #D19A66 !important; }
-.token.function { color: #61AFEF !important; }
-.token.operator { color: #56B6C2 !important; }
-.token.class-name { color: #E5C07B !important; }
-.token.property { color: #E06C75 !important; }
+/* 代码高亮颜色自定义 - Material Theme inspired */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #676e95 !important;
+    font-style: italic !important;
+}
+
+.token.function {
+    color: #82aaff !important;
+}
+
+.token.keyword {
+    color: #c792ea !important;
+    font-style: italic !important;
+}
+
+.token.string {
+    color: #c3e88d !important;
+}
+
+.token.number {
+    color: #f78c6c !important;
+}
+
+.token.boolean {
+    color: #ff5874 !important;
+}
+
+.token.operator {
+    color: #89ddff !important;
+}
+
+.token.class-name {
+    color: #ffcb6b !important;
+}
+
+.token.variable {
+    color: #eeffff !important;
+}
+
+.token.property {
+    color: #80cbc4 !important;
+}
+
+.token.punctuation {
+    color: #89ddff !important;
+}
+
+.token.tag {
+    color: #ff5572 !important;
+}
+
+.token.attr-name {
+    color: #c792ea !important;
+}
+
+.token.attr-value {
+    color: #c3e88d !important;
+}
+
+.token.regex {
+    color: #f78c6c !important;
+}
+
+.token.builtin {
+    color: #82aaff !important;
+}
+
+.token.parameter {
+    color: #f78c6c !important;
+}
+
+.token.namespace {
+    color: #b2ccd6 !important;
+}
+
+.token.constant {
+    color: #ff5874 !important;
+}
 
 /* 截图时的特殊样式 */
 .for-screenshot {
@@ -303,4 +386,15 @@
     max-width: 100%;
     height: auto;
     display: block;
+}
+
+/* 标题样式加深 */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+    color: #1a1a1a;
+    font-weight: 600;
 }
