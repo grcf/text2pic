@@ -89,9 +89,7 @@
     padding: 16px;
     background: white;
     height: 400px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    overflow: hidden;
 }
 
 .mac-window-content textarea {
@@ -120,11 +118,15 @@
 /* 输入框样式 */
 #text {
     min-height: 300px;
+    height: 100%;
+    width: 100%;
     background: transparent;
     border: none;
     font-size: 14px;
     line-height: 1.6;
     color: #24292f;
+    overflow-y: auto;
+    resize: none;
 }
 
 #text:focus {
@@ -144,14 +146,18 @@
     border-radius: 3px;
 }
 
+#text::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
 /* 预览区域样式 */
 #preview {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
     line-height: 1.6;
     background: white;
-    min-height: 100px;
-    height: auto;
-    overflow: visible;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
 }
 
 /* 预览区域中的标题样式 */
@@ -378,14 +384,16 @@
 /* 图片容器样式 */
 #result {
     width: 100%;
-    overflow: auto;
+    overflow: visible;
     margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 #output {
     max-width: 100%;
     height: auto;
     display: block;
+    margin: 0 auto;
 }
 
 /* 标题样式加深 */
@@ -457,4 +465,273 @@
 .mac-style-button.success:active {
     background: linear-gradient(to bottom, #2fb751, #32c457);
     border-color: #2fb751;
+}
+
+/* 添加全局过渡动画 */
+* {
+    transition: all 0.3s ease;
+}
+
+/* Mac 窗口悬浮效果 */
+.mac-window {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mac-window:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Mac 窗口按钮动画 */
+.mac-window-button {
+    transition: transform 0.2s ease;
+}
+
+.mac-window-button:hover {
+    transform: scale(1.1);
+}
+
+/* 按钮加载动画 */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+}
+
+/* 结果区域显示动画 */
+#result {
+    transition: all 0.5s ease;
+    transform-origin: top;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+#result.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 输入框聚焦效果 */
+#text:focus {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* 代码块悬浮效果 */
+.markdown-body pre {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.markdown-body pre:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 添加动态背景 */
+.bg-gray-100 {
+    background: linear-gradient(120deg, #f0f4f8 0%, #e9ecef 100%) fixed;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* 添加背景装饰元素 */
+.bg-gray-100::before,
+.bg-gray-100::after {
+    content: '';
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, rgba(66, 153, 225, 0.1), rgba(99, 179, 237, 0.1));
+    animation: float 20s infinite linear;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.bg-gray-100::before {
+    top: -100px;
+    left: -100px;
+}
+
+.bg-gray-100::after {
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -10s;
+}
+
+/* 添加浮动动画 */
+@keyframes float {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    50% {
+        transform: translate(50px, 50px) rotate(180deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg);
+    }
+}
+
+/* 添加几何装饰 */
+.geometric-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.geometric-shapes::before,
+.geometric-shapes::after {
+    content: '';
+    position: absolute;
+    background: linear-gradient(45deg, rgba(66, 153, 225, 0.05), rgba(99, 179, 237, 0.05));
+}
+
+.geometric-shapes::before {
+    width: 50px;
+    height: 50px;
+    top: 20%;
+    left: 10%;
+    transform: rotate(45deg);
+    animation: floatShape1 15s infinite ease-in-out;
+}
+
+.geometric-shapes::after {
+    width: 70px;
+    height: 70px;
+    bottom: 15%;
+    right: 10%;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: floatShape2 18s infinite ease-in-out;
+}
+
+@keyframes floatShape1 {
+    0%, 100% { transform: translate(0, 0) rotate(45deg); }
+    50% { transform: translate(20px, 20px) rotate(60deg); }
+}
+
+@keyframes floatShape2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(-20px, 20px) rotate(180deg); }
+}
+
+/* 确保内容在装饰元素之上 */
+.container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+}
+
+/* 给主要内容添加玻璃拟态效果 */
+.bg-white {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 优化阴影效果 */
+.shadow-lg {
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 修改 body 样式，确保可以滚动 */
+body.bg-gray-100 {
+    min-height: 100vh;
+    overflow-y: auto !important;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+/* 添加滚动条样式 */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Firefox 滚动条样式 */
+body {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05);
+}
+
+/* 输入和预览区域的基础样式 */
+#text, #preview {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+
+/* 结果区域样式 */
+#result {
+    width: 100%;
+    overflow: visible;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+#output {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* 统一滚动条样式 */
+#text::-webkit-scrollbar,
+#preview::-webkit-scrollbar {
+    width: 6px;
+}
+
+#text::-webkit-scrollbar-track,
+#preview::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#text::-webkit-scrollbar-thumb,
+#preview::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+#text::-webkit-scrollbar-thumb:hover,
+#preview::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Firefox 滚动条样式 */
+#text,
+#preview {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }

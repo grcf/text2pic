@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         preview.querySelectorAll('pre code').forEach((block) => {
             Prism.highlightElement(block);
         });
+        addCodeBlockHoverEffect();
     }
 
     editor.addEventListener('input', updatePreview);
@@ -39,19 +40,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const previewContainer = document.getElementById('preview');
         const previewParent = previewContainer.parentElement.parentElement;
-        const macWindow = document.querySelector('.mac-window-content');
         
         try {
             generateBtn.disabled = true;
-            generateBtn.textContent = '生成中...';
+            generateBtn.innerHTML = '<span class="loading-spinner"></span>生成中...';
+            
+            // 添加截图时的特殊类
+            previewParent.classList.add('for-screenshot');
             
             // 确保预览内容已更新
             updatePreview();
-
-            // 修改样式以显示完整内容
-            macWindow.style.cssText = 'padding: 16px; background: white; height: auto; overflow: visible;';
-            previewParent.style.cssText = 'height: auto; overflow: visible;';
-            previewContainer.style.cssText = 'height: auto; overflow: visible;';
             
             // 等待样式应用和内容渲染
             await new Promise(resolve => setTimeout(resolve, 300));
@@ -60,57 +58,53 @@ document.addEventListener('DOMContentLoaded', function() {
                 scale: 2,
                 useCORS: true,
                 logging: false,
-                backgroundColor: '#ffffff',
-                onclone: function(clonedDoc) {
-                    const clonedPreview = clonedDoc.getElementById('preview');
-                    if (clonedPreview) {
-                        const clonedParent = clonedPreview.parentElement;
-                        // 确保克隆的元素也应用相同的样式
-                        clonedParent.style.cssText = 'height: auto; overflow: visible;';
-                        clonedPreview.style.cssText = 'height: auto; overflow: visible;';
-                        
-                        // 重新应用代码高亮
-                        const codeBlocks = clonedPreview.querySelectorAll('pre code');
-                        codeBlocks.forEach((block) => {
-                            Prism.highlightElement(block);
-                        });
-                    }
-                }
+                backgroundColor: '#ffffff'
             });
 
             const imgUrl = canvas.toDataURL('image/png');
             outputImg.src = imgUrl;
             downloadBtn.href = imgUrl;
+            downloadBtn.classList.remove('hidden');
             resultDiv.style.display = 'block';
+            resultDiv.offsetHeight; // 强制重排
+            resultDiv.classList.add('show');
             
         } catch (error) {
             console.error('生成图片时出错:', error);
             alert('生成图片时出错，请重试');
         } finally {
-            // 恢复原始样式
-            const restoreStyles = () => {
-                macWindow.style.cssText = 'padding: 16px; background: white; height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(0, 0, 0, 0.2) transparent;';
-                previewParent.style.cssText = 'height: 400px; overflow-y: auto;';
-                previewContainer.style.cssText = 'height: 100%; overflow-y: auto;';
-                
-                // 强制重新计算布局
-                macWindow.offsetHeight;
-                previewParent.offsetHeight;
-                previewContainer.offsetHeight;
-            };
-
-            // 立即恢复一次
-            restoreStyles();
+            // 移除截图时的特殊类
+            previewParent.classList.remove('for-screenshot');
             
-            // 为确保样式完全应用，延迟后再次恢复
-            setTimeout(restoreStyles, 100);
-            
-            // 恢复按钮状态
             generateBtn.disabled = false;
-            generateBtn.textContent = '生成图片';
+            generateBtn.innerHTML = '生成图片';
         }
     });
 
     // 初始预览
     updatePreview();
 });
+
+// 添加文本框输入动画效果
+editor.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+});
+
+// 添加代码块动态高亮效果
+function addCodeBlockHoverEffect() {
+    const codeBlocks = document.querySelectorAll('.markdown-body pre');
+    codeBlocks.forEach(block => {
+        block.addEventListener('mousemove', e => {
+            const rect = block.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            block.style.background = `radial-gradient(circle at ${x}px ${y}px, #2d3142, #292d3e)`;
+        });
+        
+        block.addEventListener('mouseleave', () => {
+            block.style.background = '#292d3e';
+        });
+    });
+}
