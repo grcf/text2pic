@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const downloadBtn = document.getElementById('download');
     const outputImg = document.getElementById('output');
     const resultDiv = document.getElementById('result');
+    const copyBtn = document.getElementById('copy');
 
     // 配置marked
     marked.setOptions({
@@ -65,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
             outputImg.src = imgUrl;
             downloadBtn.href = imgUrl;
             downloadBtn.classList.remove('hidden');
+            copyBtn.classList.remove('hidden');
             resultDiv.style.display = 'block';
             resultDiv.offsetHeight; // 强制重排
             resultDiv.classList.add('show');
@@ -83,6 +85,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 初始预览
     updatePreview();
+
+    // 添加复制图片功能
+    copyBtn.addEventListener('click', async function() {
+        try {
+            const imgUrl = outputImg.src;
+            const response = await fetch(imgUrl);
+            const blob = await response.blob();
+            
+            await navigator.clipboard.write([
+                new ClipboardItem({
+                    'image/png': blob
+                })
+            ]);
+            
+            // 临时改变按钮文字显示复制成功
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '复制成功！';
+            copyBtn.classList.add('success');
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+                copyBtn.classList.remove('success');
+            }, 2000);
+            
+        } catch (error) {
+            console.error('复制图片失败:', error);
+            alert('复制图片失败，请重试或使用下载功能');
+        }
+    });
 });
 
 // 添加文本框输入动画效果

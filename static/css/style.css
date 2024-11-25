@@ -735,3 +735,15 @@ body {
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
+
+/* 添加复制按钮成功状态样式 */
+.mac-style-button.success {
+    background: linear-gradient(to bottom, #34c759, #30b753);
+    border-color: #2da94d;
+    color: white;
+}
+
+/* 添加复制按钮过渡动画 */
+.mac-style-button {
+    transition: all 0.3s ease;
+}
