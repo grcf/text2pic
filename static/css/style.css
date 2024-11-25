@@ -885,3 +885,53 @@ body {
     background: linear-gradient(180deg, #2563eb, #3b82f6);
     border-radius: 2px;
 }
+
+/* GitHub 图标链接样式 */
+.github-link {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.github-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    background: #f8fafc;
+}
+
+.github-icon {
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.github-link:hover .github-icon {
+    color: #2563eb;
+    transform: scale(1.1);
+}
+
+/* 在移动设备上调整位置和大小 */
+@media (max-width: 768px) {
+    .github-link {
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .github-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
