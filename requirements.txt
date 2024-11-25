@@ -1,0 +1,7 @@
+flask
+Pillow
+python-dotenv
+markdown
+Pygments
+beautifulsoup4
+html2text

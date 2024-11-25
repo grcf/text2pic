@@ -1,0 +1,306 @@
+.markdown-body {
+    background-color: white;
+    min-width: 200px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* 代码块容器样式 */
+.markdown-body pre {
+    background-color: #282c34 !important;
+    border-radius: 6px;
+    padding: 1rem !important;
+    margin: 1rem 0 !important;
+    overflow: auto;
+}
+
+/* 代码文本样式 */
+.markdown-body code {
+    font-family: 'Cascadia Code', 'Consolas', monospace;
+    font-size: 0.9em;
+}
+
+/* 代码块中的代码样式 */
+.markdown-body pre code {
+    color: #abb2bf !important;
+    font-family: 'Cascadia Code', 'Consolas', monospace !important;
+    font-size: 0.9em !important;
+    text-shadow: none !important;
+    background: none !important;
+    padding: 0 !important;
+    white-space: pre;
+    word-break: normal;
+    word-spacing: normal;
+}
+
+/* 行内代码样式 */
+.markdown-body code:not(pre code) {
+    background-color: rgba(175, 184, 193, 0.2);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+/* Mac 窗口样式 */
+.mac-window {
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+
+.mac-window-header {
+    background: #e9e9e9;
+    padding: 8px 12px;
+    position: relative;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.mac-window-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.mac-window-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.mac-close { background: #ff5f56; }
+.mac-minimize { background: #ffbd2e; }
+.mac-maximize { background: #27c93f; }
+
+.mac-window-content {
+    padding: 16px;
+    background: white;
+    height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.mac-window-content textarea {
+    height: 100%;
+    min-height: 100%;
+}
+
+.mac-window-content #preview {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.mac-window-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.mac-window-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mac-window-content::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+/* 输入框样式 */
+#text {
+    min-height: 300px;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #24292f;
+}
+
+#text:focus {
+    outline: none;
+}
+
+#text::-webkit-scrollbar {
+    width: 6px;
+}
+
+#text::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#text::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+/* 预览区域样式 */
+#preview {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    background: white;
+    min-height: 100px;
+    height: auto;
+    overflow: visible;
+}
+
+/* 预览区域中的标题样式 */
+#preview h1,
+#preview h2,
+#preview h3,
+#preview h4,
+#preview h5,
+#preview h6 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+#preview h1 {
+    font-size: 2em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #eaecef;
+}
+
+#preview h2 {
+    font-size: 1.5em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #eaecef;
+}
+
+#preview h3 {
+    font-size: 1.25em;
+}
+
+#preview h4 {
+    font-size: 1em;
+}
+
+#preview h5 {
+    font-size: 0.875em;
+}
+
+#preview h6 {
+    font-size: 0.85em;
+    color: #6a737d;
+}
+
+/* 列表样式 */
+#preview ul,
+#preview ol {
+    padding-left: 2em;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+#preview li {
+    margin-top: 0.25em;
+}
+
+/* 引用样式 */
+#preview blockquote {
+    margin: 0;
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: 0.25em solid #dfe2e5;
+}
+
+/* 段落样式 */
+#preview p {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+/* 链接样式 */
+#preview a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+#preview a:hover {
+    text-decoration: underline;
+}
+
+/* 图片样式 */
+#preview img {
+    max-width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+/* 表格样式 */
+#preview table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-top: 0;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+#preview table th,
+#preview table td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+#preview table tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+}
+
+#preview table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+/* 代码高亮样式 */
+.token.comment { color: #5C6370 !important; font-style: italic !important; }
+.token.keyword { color: #C678DD !important; }
+.token.string { color: #98C379 !important; }
+.token.number { color: #D19A66 !important; }
+.token.function { color: #61AFEF !important; }
+.token.operator { color: #56B6C2 !important; }
+.token.class-name { color: #E5C07B !important; }
+.token.property { color: #E06C75 !important; }
+
+/* 截图时的特殊样式 */
+.for-screenshot {
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.for-screenshot .mac-window-content {
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.for-screenshot #preview {
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.for-screenshot .markdown-body {
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* 添加截图时的特殊样式 */
+.for-screenshot .mac-window-content,
+.for-screenshot #preview {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* 图片容器样式 */
+#result {
+    width: 100%;
+    overflow: auto;
+    margin-top: 20px;
+}
+
+#output {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}

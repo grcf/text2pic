@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Picture</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.2.0/github-markdown.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">文本转图片工具</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- 输入区域 -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="mac-window">
+                    <div class="mac-window-header">
+                        <div class="mac-window-buttons">
+                            <div class="mac-window-button mac-close"></div>
+                            <div class="mac-window-button mac-minimize"></div>
+                            <div class="mac-window-button mac-maximize"></div>
+                        </div>
+                    </div>
+                    <div class="mac-window-content bg-white">
+                        <textarea id="text" rows="10" 
+                            class="w-full py-2 px-3 text-gray-700 leading-normal focus:outline-none font-mono resize-none"
+                            placeholder="请输入要转换的文本...&#10;支持Markdown语法，例如：&#10;# 标题&#10;**粗体** *斜体*&#10;- 列表项&#10;> 引用"></textarea>
+                    </div>
+                </div>
+                
+                <div class="mt-4 flex gap-4">
+                    <button id="generate" 
+                        class="flex-1 py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors">
+                        生成图片
+                    </button>
+                    <a id="download" download="text2pic.png" class="hidden flex-1 py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors text-center">
+                        下载图片
+                    </a>
+                </div>
+            </div>
+
+            <!-- 预览区域 -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="mac-window">
+                    <div class="mac-window-header">
+                        <div class="mac-window-buttons">
+                            <div class="mac-window-button mac-close"></div>
+                            <div class="mac-window-button mac-minimize"></div>
+                            <div class="mac-window-button mac-maximize"></div>
+                        </div>
+                    </div>
+                    <div class="mac-window-content bg-white">
+                        <div id="preview" class="markdown-body p-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 结果区域 -->
+        <div id="result" class="mt-8 bg-white rounded-lg shadow-lg p-6 hidden">
+            <h2 class="text-xl font-semibold mb-4">生成结果</h2>
+            <div class="flex flex-col items-center">
+                <img id="output" class="max-w-full rounded-lg shadow-lg" alt="生成的图片">
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
