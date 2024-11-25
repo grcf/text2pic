@@ -1080,3 +1080,43 @@ body {
     color: #2563eb;
     text-decoration: underline;
 }
+
+/* 区域标题样式 */
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e40af;
+    margin-bottom: 0.75rem;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 1em;
+    background: linear-gradient(180deg, #2563eb, #3b82f6);
+    border-radius: 2px;
+}
+
+/* 说明文字样式 */
+.section-desc {
+    color: #6b7280;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    padding-left: 1rem;
+}
+
+.section-desc strong {
+    color: #2563eb;
+    font-weight: 500;
+    background: linear-gradient(120deg, #2563eb, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 0 0.2em;
+}
